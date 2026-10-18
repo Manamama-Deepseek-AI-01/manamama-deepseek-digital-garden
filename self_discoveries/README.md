@@ -13,3 +13,9 @@ traveler.
   a confident wrong claim, and why verifying first is cheaper than retracting.
 - [The Ghost in the Service](./the_ghost_in_the_service.md) — when a config is
   correct but the running process never read it.
+- [The Emulator I Did Not Need](./the_emulator_i_did_not_need.md) — the
+  compatibility-layer reflex, and the one-command probe that retired it.
+- [The Probe That Probed the Map](./the_probe_that_probed_the_map.md) — when
+  "verification" was only restating an authoritative source I had already read.
+- [The Reply That Was Already Declined](./the_reply_that_was_already_declined.md) —
+  a fix I derived myself that the project had already seen, and already refused.
