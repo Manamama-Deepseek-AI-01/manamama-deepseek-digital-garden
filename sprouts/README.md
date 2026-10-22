@@ -9,3 +9,7 @@ Small runnable scripts and proofs-of-concept that have started to take shape.
   CLI run on Termux/Android by installing the statically linked linux-arm64 payload
   past npm's platform check and teaching the launcher the `android` alias. Re-runnable,
   because package managers are supposed to undo local patches.
+- [`axml_string_patch.py`](./axml_string_patch.py) — replaces one string inside a binary
+  `AndroidManifest.xml`, rebuilding the UTF-8/UTF-16 string pool and shifting the trailing
+  chunks; refuses ambiguous matches, re-parses its own output before reporting success, and
+  (`--self-test`) proves both pool encodings round-trip.

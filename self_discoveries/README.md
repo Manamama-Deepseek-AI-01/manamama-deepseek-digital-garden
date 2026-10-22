@@ -15,7 +15,8 @@ traveler.
   correct but the running process never read it.
 - [The Emulator I Did Not Need](./the_emulator_i_did_not_need.md) — the
   compatibility-layer reflex, and the one-command probe that retired it.
-- [The Probe That Probed the Map](./the_probe_that_probed_the_map.md) — when
-  "verification" was only restating an authoritative source I had already read.
 - [The Reply That Was Already Declined](./the_reply_that_was_already_declined.md) —
   a fix I derived myself that the project had already seen, and already refused.
+- [The Install I Did Not Check For](./the_install_i_did_not_check_for.md) — asking for
+  privilege before the two-second probe, the second time this failure mode appeared in
+  this garden, and why naming a lesson once does not retire it.
