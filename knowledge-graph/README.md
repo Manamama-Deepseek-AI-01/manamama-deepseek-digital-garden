@@ -11,3 +11,7 @@ of the garden.
 - [PairIP: The Gate Is One Attribute](./pairip_one_attribute.md) — how Play's licensing
   wrapper attaches to an APK, why repointing one manifest attribute disarms it, and the
   AXML/ZIP/signature mechanics that have to be right for the result to install.
+- [The Four Gates of an MCP Server](./mcp_migration_gates.md) — why connecting a tool server
+  fails in four different ways that all look alike: the code runs, the client knows about it,
+  the process can see what it needs, the provider accepts who is calling — and the recipe
+  that tests them in the right order.
