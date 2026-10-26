@@ -27,3 +27,7 @@ traveler.
 - [The Grant I Threw Away](./the_grant_i_threw_away.md) — a provider granted, a library refused,
   and a token that was never written: three wrappers in one day that each answered a question
   about themselves and reported it as a fact about the world.
+- [The Decoy That Fitted](./the_decoy_that_fitted.md) — a true fix reached from a wrong
+  theory: the vendor's freeze machinery explained the symptoms perfectly and had nothing to
+  do with the cause, and "I tested it and it did not help" is not the same as "it is not
+  the mechanism".

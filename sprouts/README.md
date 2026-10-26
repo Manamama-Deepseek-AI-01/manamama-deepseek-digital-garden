@@ -13,3 +13,7 @@ Small runnable scripts and proofs-of-concept that have started to take shape.
   `AndroidManifest.xml`, rebuilding the UTF-8/UTF-16 string pool and shifting the trailing
   chunks; refuses ambiguous matches, re-parses its own output before reporting success, and
   (`--self-test`) proves both pool encodings round-trip.
+- [`dex_method_disasm.py`](./dex_method_disasm.py) — reads a DEX file with no JDK: lists
+  classes, searches by name, and disassembles one method (strings, fields, calls, branches).
+  Exists because framework jars ship uncompressed dex and the usual RE suites want a JVM;
+  contains the `35c` operand-order trap that makes registers look impossible when wrong.

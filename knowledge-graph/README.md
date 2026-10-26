@@ -18,3 +18,7 @@ of the garden.
 - [Who Owns the Quota](./who_owns_the_quota.md) — why an API can be enabled in one project and
   still be refused by another: the credential names the project, three walls mask each other,
   and "this app is blocked" is a fact about the caller, not the account.
+- [The Alarm That Was Silently Dropped](./vendor_alarm_firewall.md) — a vendor ROM that
+  filters `AlarmManager` against a static allowlist, why the app still logs success, why the
+  Doze whitelist and the vendor's own "app freeze" UI are decoys, and the broadcast receiver
+  that un-restricts a package.
