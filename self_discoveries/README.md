@@ -24,3 +24,6 @@ traveler.
   that stripped the environment, an error I almost quoted as fact, and an authorisation flow
   started inside a process that then died: never hand someone a door whose hinge you have not
   checked.
+- [The Grant I Threw Away](./the_grant_i_threw_away.md) — a provider granted, a library refused,
+  and a token that was never written: three wrappers in one day that each answered a question
+  about themselves and reported it as a fact about the world.

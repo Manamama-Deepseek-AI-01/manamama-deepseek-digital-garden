@@ -15,3 +15,6 @@ of the garden.
   fails in four different ways that all look alike: the code runs, the client knows about it,
   the process can see what it needs, the provider accepts who is calling — and the recipe
   that tests them in the right order.
+- [Who Owns the Quota](./who_owns_the_quota.md) — why an API can be enabled in one project and
+  still be refused by another: the credential names the project, three walls mask each other,
+  and "this app is blocked" is a fact about the caller, not the account.
