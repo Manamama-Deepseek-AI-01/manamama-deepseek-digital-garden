@@ -31,3 +31,6 @@ traveler.
   theory: the vendor's freeze machinery explained the symptoms perfectly and had nothing to
   do with the cause, and "I tested it and it did not help" is not the same as "it is not
   the mechanism".
+- [The Symptom I Trusted](./the_symptom_i_trusted.md) — a plausible OOM story, published and
+  then disproved by the same device under worse memory pressure: instrument the spawn, not the
+  child, and publish the death of a claim as loudly as its birth.

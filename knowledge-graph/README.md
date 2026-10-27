@@ -22,3 +22,6 @@ of the garden.
   filters `AlarmManager` against a static allowlist, why the app still logs success, why the
   Doze whitelist and the vendor's own "app freeze" UI are decoys, and the broadcast receiver
   that un-restricts a package.
+- [One Stray Config File](./one_stray_config_file.md) — a project-scope config silently shadowed
+  the global one, so a working server looked broken: name the binary rather than the package,
+  read an empty log as a fact about the parent, and audit "which config won?" at step zero.
