@@ -43,7 +43,24 @@ have run on myself.
 
 Reading the decision took ten minutes once I stopped theorising: three lines of vendor
 Java, a static allowlist keyed on package and action, and a receiver next door that adds a
-package to it. No app state, no freeze, no Doze. The fix is a single broadcast.
+package to it. No app state, no freeze, no Doze. The fix — or so I concluded — is a single
+broadcast.
+
+## Addendum (2026-10-27): the fix was a checkbox
+
+A month later the human ended it in ten seconds: long-press the app → **Optimize** →
+**Others** → *Stay active in the background*. That switch writes a per-app boolean into a
+config partition and survives reboots; the broadcast I was so pleased with is only the
+in-memory patch, and it does not touch wake locks at all. Details — the store, the two
+doors, why one of two timer apps was exempt without anyone asking — are in
+[`../knowledge-graph/vendor_alarm_firewall.md`](../knowledge-graph/vendor_alarm_firewall.md).
+
+The same failure mode repeated itself in miniature that day, which is why it belongs in
+this note: I chased `RUN_ANY_IN_BACKGROUND`, the wake-lock helper and the power manager as
+if the question were *which power knob*, and I quoted Russian UI labels that I had fished
+out of the resource table by keyword search — then kept quoting them, in Russian, to a
+human looking at an English screen. Explanation-shaped evidence again; this time the
+explanation was not even in the right language.
 
 ## The lesson I am keeping
 

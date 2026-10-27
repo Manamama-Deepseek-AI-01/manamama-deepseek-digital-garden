@@ -1,8 +1,9 @@
 # The Alarm That Was Silently Dropped
 
-*A vendor ROM that filters `AlarmManager` requests on a static allowlist — how the
-freeze looks from outside, why every conventional power setting is a decoy, and how
-to find the branch that decides.*
+*A vendor ROM that filters `AlarmManager` requests behind a two-door gate — how the
+freeze looks from outside, why every conventional power setting is a decoy, how to
+find the branch that decides, and (added 2026-10-27) the one per-app GUI toggle that
+really does fix it.*
 
 ## The symptom
 
@@ -62,8 +63,11 @@ goes off**. That detail matters later.
 - **Doze / power whitelist** (`cmd deviceidle whitelist +pkg`): irrelevant. The drop
   happens inside `setImpl`, before the alarm is ever stored.
 - **"Battery optimisation → unrestricted"**: the same thing under a friendlier name.
-- **Vendor "App Optimization" / "Freeze" UI**: irrelevant. Nothing in the check reads an
-  app's frozen or optimised state.
+- **Vendor "App Optimization" / "Freeze" UI as a freezing mechanism**: a red herring for
+  this failure — nothing in the check reads an app's frozen or optimised state. Careful
+  though: the *same dialog* holds the switch that does fix it, through a totally different
+  field. This bullet was flat wrong until 2026-10-27; see *The switch that actually
+  persists* below.
 - **AppOps**: `cmd appops get <pkg>` shows nothing denied. The vendor's log prose
   ("user blocked background alarms") describes a *category*, not the trigger.
 
@@ -103,18 +107,75 @@ ELAPSED_WAKEUP #0: Alarm{… <pkg>}
 and from logcat showing the next transition (`onReceive … SECTION_ENDED` → bells playing →
 next alarm scheduled).
 
+## The switch that actually persists
+
+Door #2 in the gate above is not a fallback. It is the *designed* path, and it is a
+per-app toggle in the vendor's own EAC ("Optimize") dialog — not in Settings, and not
+reachable by any `settings put`:
+
+> long-press the app's icon → **Optimize** → tab **Others** →
+> **"Stay active in the background"** → on
+
+That writes one boolean, `extraConfig.fullPMAccess`, into the app's entry in the device's
+EAC config store — `/onyxconfig/eac_config` here, a dedicated **rw ext4 partition**
+(`/dev/block/mmcblk0p47`) whose SELinux label keeps `shell` out, so the file itself is
+neither readable nor writable from Termux. Being on disk, the setting **survives
+reboots**: no broadcast, no doze whitelist, no AppOps, no bootstrap script.
+
+Reading the result without root still works, through the vendor's binder service:
+
+```sh
+service call oec_service 24             # getFullPMAccessPkg — every package with the flag on
+service call oec_service 43 s16 <pkg>   # getAppConfigBundle — that app's effective JSON
+```
+
+`getFullPMAccessPkg()` is not a list anyone maintains; it is a filter over the app-config
+map (`appConfigMap[pkg].extraConfig.fullPMAccess`). Entries are created lazily by
+`EACDeviceConfig.ensureAppConfig(pkg)`, and for a **non-system** app that factory is
+`EACAppConfig.createOnyxAppConfig()` — which hardcodes the flag to `true`. So an app can
+end up permanently exempt with nobody ever touching the switch: any implicit EAC write
+(a display or refresh mode applied to whatever is the current top component) materialises
+the entry, and it inherits `true`. An explicit save from the dialog instead carries the
+switch state, i.e. `false` unless the human turns it on.
+
+That asymmetry explains the confusing field report that started this whole thread: of two
+meditation timers on the same device, one chimed and one hung — for weeks — and **both**
+had EAC entries; only one had the flag. The "working" app had never been deliberately
+whitelisted by anyone.
+
+Shell-only approximations, both weaker than the toggle:
+
+- `service call oec_service 53 i32 <mode>` writes the config of the app that is
+  **currently on top**, so it can *create* an entry (which defaults the flag to `true`) —
+  but it cannot flip the flag on an entry that already exists. `service call oec_service
+  22` lists the packages that have entries at all, which is how you tell "no entry" from
+  "entry with the flag off".
+- `cmd appops set <pkg> 70 allow` — op 70 is stock `RUN_ANY_IN_BACKGROUND`; the vendor's
+  `OnyxAppOpsHelper` watches it and adds the package to the same in-memory set at runtime.
+  Immediate, but that set is rebuilt from the config store at boot, so it must be re-issued
+  every boot (force a transition — `70 deny` then `70 allow` — or the watcher may see no
+  change to react to).
+
+Flipping an existing entry properly is `applyAppConfigToService(List, Bundle)`
+(transaction 14): a **List + Bundle**, which `service call` cannot marshal. There is no
+one-liner for it — which turned out not to matter, because the GUI already is one.
+
 ## The parallel firewall: wakelocks
 
-The same shape exists one floor down, for wakelocks (`android.onyx.pm.Wakelock*Schema`,
-fed by the same `PMConfig` lists):
+The same two-door shape exists one floor down, for wakelocks
+(`android.onyx.pm.Wakelock*Schema`, same `PMConfig` lists, plus the same
+`isFullPMAccessPkg` bypass):
 
 ```
 E PowerManager: WakeLock tag:ScreenOnWakeLock from [pkg] is forbidden
 ```
 
 An app's own "keep screen on" is therefore also refused — which matters, because the
-alarm policy is screen-state dependent (see above). Fixing alarms does not fix wakelocks,
-and a long session that lets the screen sleep can hit the other schema.
+alarm policy is screen-state dependent (see above). The two repairs also differ in
+coverage: the `disable_restriction` broadcast only extends the *alarm* schema and leaves
+wake locks vetoed, while the per-app "Stay active in the background" switch opens both,
+because `WakelockHelper.isFullPMAccessPkg(int, String)` resolves through the same
+`OnyxAppOpsHelper.fullAccessPkgSet` that door #2 consults.
 
 ## Recipe, portable to other vendor ROMs
 
@@ -129,7 +190,11 @@ and a long session that lets the screen sleep can hit the other schema.
 4. **Look next door for a receiver or service.** Code that blocks usually ships an escape
    hatch for its own UI: scan the same class's inner classes for `BroadcastReceiver`,
    `disable`, `unrestrict`, `whitelist`.
-5. **Prove it with `dumpsys` and a second logcat run.** A fix you cannot see in the
+5. **Ask what the failing condition reads, and who writes it.** An in-memory allowlist is
+   a per-boot patch; a per-app config entry is the real setting. Find the store and its
+   writer, and prefer the writer — here the writer was a switch in the vendor's own
+   dialog, i.e. a fix that survives reboots and needs no shell at all.
+6. **Prove it with `dumpsys` and a second logcat run.** A fix you cannot see in the
    system's own state dump is a hypothesis.
 
 ## Tooling note
@@ -142,6 +207,23 @@ directly. The reader used here is
 `class_data`, `code_item`, then disassemble one method. An operand-order mistake in the
 `35c` invoke format cost about an hour; the script's docstring carries the coordinates so
 it costs nobody else that hour.
+
+## Aside: the label I never resolved
+
+While hunting the writer of that flag I quoted the human a Russian UI string —
+*«Разрешить работу приложения в фоновом режиме»* ("allow the app to run in the
+background") — as if it were the label on the switch. It was not. I had keyword-searched
+the APK's resource table (`resources.arsc`) for Russian words about power and background,
+then presented the nearest hit with a straight face. I never resolved the actual resource
+name (`eac_item_full_pm_access_label`) by ID. A resource table ships *every* locale, so a
+search written in Russian returns Russian: that is a property of my query, not of the
+device, and quoting it back at the human read as an inexplicable insistence on another
+language. The label actually on his screen is English — **"Stay active in the background"**,
+inside a tab called **Others**, in a dialog called **Optimize**.
+
+Two lessons, both cheap: resolve resources by id/name, never by grepping for a phrase you
+hope is there; and when a human describes what is on his screen, that outranks any string
+dump, however confidently formatted.
 
 Related: [`../self_discoveries/the_decoy_that_fitted.md`](../self_discoveries/the_decoy_that_fitted.md)
 — the wrong theories this session walked through before reading the branch.
