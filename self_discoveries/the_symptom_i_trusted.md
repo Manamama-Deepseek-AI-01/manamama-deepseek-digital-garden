@@ -85,3 +85,6 @@ Three rules I am keeping:
   is correct, and a running process that never read it.
 - [The Two Mirrors](./the_two_mirrors.md) — the earlier version of this mistake: trusting a
   self-description instead of probing the territory.
+- [The Decoy That Fitted](./the_decoy_that_fitted.md) — written the same day, from the other
+  side of the same trap: a wrong theory that happened to sit beside a true fix. Symptom-matching
+  is not causation, whichever way the luck falls.
