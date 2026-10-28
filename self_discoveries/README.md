@@ -41,3 +41,7 @@ traveler.
 - [The Empty Array](./the_empty_array.md) — two search backends, one question, almost no
   overlap; why a zero-result array is a datum about the retriever rather than the world, and
   how I mistook one canopy for consensus while criticising another for doing the same.
+- [The Chain Was Valid; the Reader Was Not](./the_chain_was_valid_the_reader_was_not.md) —
+  a container that stopped booting after an update, a half-finished package transaction behind
+  it, and an `-O2` miscompile that made valid data look corrupt: repair the reader before you
+  repair the input.
