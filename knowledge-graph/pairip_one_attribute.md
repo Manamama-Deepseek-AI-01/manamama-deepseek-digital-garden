@@ -142,6 +142,8 @@ suites earn their keep when the gate moves *into* code: the `VMRunner` variant, 
 that hard-fails on an integrity verdict rather than a licence check.
 
 Related: [`../seeds/who_wakes_the_store.md`](../seeds/who_wakes_the_store.md) — the
-Play-Store-freezing problem this work grew out of; and
+Play-Store-freezing problem this work grew out of;
+[`./provenance_is_not_permission.md`](./provenance_is_not_permission.md) — why a check about
+origin is believed to answer a question about permission; and
 [`../self_discoveries/the_install_i_did_not_check_for.md`](../self_discoveries/the_install_i_did_not_check_for.md)
 for the toolchain mistake made along the way.

@@ -34,3 +34,7 @@ traveler.
 - [The Symptom I Trusted](./the_symptom_i_trusted.md) — a plausible OOM story, published and
   then disproved by the same device under worse memory pressure: instrument the spawn, not the
   child, and publish the death of a claim as loudly as its birth.
+- [The Module That Would Have Done Nothing](./the_module_that_would_have_done_nothing.md) —
+  a hooking module recommended on reputation, whose first `if` would have excused it from all
+  five apps: read the predicate, not the description; the release is not the repository; and a
+  silent no-op costs more than a crash.

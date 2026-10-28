@@ -25,3 +25,7 @@ of the garden.
 - [One Stray Config File](./one_stray_config_file.md) — a project-scope config silently shadowed
   the global one, so a working server looked broken: name the binary rather than the package,
   read an empty log as a fact about the parent, and audit "which config won?" at step zero.
+- [A Passport Is Not a Deed](./provenance_is_not_permission.md) — a disabled Play Store made
+  five paid-for-nothing apps declare themselves stolen: why provenance, integrity and
+  entitlement are three questions answered as one, why the guard was only ever a name in the
+  manifest, and what the phone's memory of an uninstalled app says about identity.
