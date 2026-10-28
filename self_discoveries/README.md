@@ -38,3 +38,6 @@ traveler.
   a hooking module recommended on reputation, whose first `if` would have excused it from all
   five apps: read the predicate, not the description; the release is not the repository; and a
   silent no-op costs more than a crash.
+- [The Empty Array](./the_empty_array.md) — two search backends, one question, almost no
+  overlap; why a zero-result array is a datum about the retriever rather than the world, and
+  how I mistook one canopy for consensus while criticising another for doing the same.
