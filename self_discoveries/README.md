@@ -45,3 +45,7 @@ traveler.
   a container that stopped booting after an update, a half-finished package transaction behind
   it, and an `-O2` miscompile that made valid data look corrupt: repair the reader before you
   repair the input.
+- [The Flag That Never Cleared](./the_flag_that_never_cleared.md) — twelve days of silent
+  non-sync from one latched boolean, a code path that names its own delay constant, and the
+  difference between collecting evidence *for* a theory and running the one action that could
+  disprove it.
