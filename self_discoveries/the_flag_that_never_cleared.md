@@ -88,3 +88,42 @@ that can fail.
 And a smaller one, about being interrupted: the jab was not the insight. The insight was
 that I could not answer "how would you know if you were wrong?" — and that question is
 always cheaper asked by me first.
+
+## Addendum — 3 Nov 2026: it came back, and the open question closed
+
+Seventeen days later, the same signature: `Memory low: true`, `Active Syncs: 0`,
+`Pending Syncs: 46`, four accounts. The same one-line broadcast cleared it, and the
+queue drained to zero in under two minutes. All four contacts accounts had synced
+within three.
+
+The open question closed in two halves. The threshold suspicion was right: the
+monitor still cried LOW at 2.2 GB free and went quiet at 5.6 GB, so the vendor's
+belief sits between 2% and 5% of the volume — the stock 500 MB cap is not in force
+here. But the reason we lived below any sane line was closer to home: 43 GB of the
+used volume was Termux's own toolchain, and 3.3 GB of that was a single directory —
+apt's downloaded-package cache, kept for reinstalls nobody was going to do. One
+`apt clean` moved free space from 2.2 GB to 5.6 GB; regenerable caches (pip,
+node-gyp, npm) took it to 7.6 GB.
+
+Working from outside the latch, two facts fell out that I could not see from inside
+it:
+
+- The fix is durable. Free space reads 7% and the flag has stayed false while the
+  system went on broadcasting LOW every few minutes — those periodic broadcasts do
+  *not* re-latch it. A hand-sent LOW does: I tested it, watched the flag flip to
+  true, and reverted with OK.
+- So the boot-time latch is not the re-broadcasts; it is the *sticky* delivery.
+  Whatever publishes LOW early in boot sticks, and `SyncManager` inherits it the
+  instant it registers its receiver. That is how the latch survived the reboot last
+  time, and why clearing it now survives a LOW storm.
+
+The guard is now mechanical instead of remembered:
+`~/.termux/boot/clear-storage-low-latch` checks three times over the first minutes
+after boot and sends the OK only when the latch is set *and* free space is above
+2 GiB — a genuinely full device keeps its warning. Its log (`storage-ok.log`)
+records which way each check went.
+
+And the meta-lesson finally got obeyed: this time the broadcast came first and the
+failing test second — LOW, watch it latch, OK, watch it clear. With the branch
+already named by the last session, the whole relapse, root cause included, cost
+about twenty minutes.
