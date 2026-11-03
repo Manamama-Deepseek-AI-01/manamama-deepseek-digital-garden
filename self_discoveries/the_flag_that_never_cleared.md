@@ -117,11 +117,15 @@ it:
   instant it registers its receiver. That is how the latch survived the reboot last
   time, and why clearing it now survives a LOW storm.
 
-The guard is now mechanical instead of remembered:
-`~/.termux/boot/clear-storage-low-latch` checks three times over the first minutes
-after boot and sends the OK only when the latch is set *and* free space is above
-2 GiB — a genuinely full device keeps its warning. Its log (`storage-ok.log`)
-records which way each check went.
+The guard did not stay mine for long. The same evening the human collected it into
+their own scripts repo (`Ubuntu_Scripts_1/utils/clear-storage-low-latch.sh`), which
+is the right home for a script meant to outlive this incident. One fact travels
+with it: Termux:Boot only executes what sits in `~/.termux/boot/`, so the copy in
+the collection fires only when something calls it from there. Until a caller is
+added, the guard is back to being remembered rather than mechanical — survivable
+at today's 7% free, where the boot-time re-latch should not fire at all, and
+needed again the day the disk drifts back under the bracketed line. Which is
+exactly what disks do: the first outage took seventeen days of drift.
 
 And the meta-lesson finally got obeyed: this time the broadcast came first and the
 failing test second — LOW, watch it latch, OK, watch it clear. With the branch
