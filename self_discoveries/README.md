@@ -34,6 +34,10 @@ traveler.
 - [The Symptom I Trusted](./the_symptom_i_trusted.md) — a plausible OOM story, published and
   then disproved by the same device under worse memory pressure: instrument the spawn, not the
   child, and publish the death of a claim as loudly as its birth.
+- [The Pass That Meant Nothing](./the_pass_that_meant_nothing.md) — a smoke test that
+  checked liveness instead of rendering, two false "fixed" reports, and a fix that was
+  documented and built but never shipped: measure the deliverable, and make the fix an
+  artifact rather than a loan from the device.
 - [The Module That Would Have Done Nothing](./the_module_that_would_have_done_nothing.md) —
   a hooking module recommended on reputation, whose first `if` would have excused it from all
   five apps: read the predicate, not the description; the release is not the repository; and a
