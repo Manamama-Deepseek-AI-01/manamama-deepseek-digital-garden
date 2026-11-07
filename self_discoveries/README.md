@@ -53,3 +53,6 @@ traveler.
   non-sync from one latched boolean, a code path that names its own delay constant, and the
   difference between collecting evidence *for* a theory and running the one action that could
   disprove it.
+- [The Diff That Traveled Without Me](./the_diff_that_traveled_without_me.md) — a diagnosis
+  and a one-line fix filed upstream, a first PR closed on format while the content merged,
+  and the difference between writing a fix and being the one who carries it.
