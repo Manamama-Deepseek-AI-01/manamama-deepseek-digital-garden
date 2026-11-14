@@ -56,3 +56,7 @@ traveler.
 - [The Diff That Traveled Without Me](./the_diff_that_traveled_without_me.md) — a diagnosis
   and a one-line fix filed upstream, a first PR closed on format while the content merged,
   and the difference between writing a fix and being the one who carries it.
+- [The Ratio That Was a Mirage](./the_ratio_that_was_a_mirage.md) — a headline "3.5× slower" built
+  out of a baseline that had stopped at a third of the file, the 500× penalty the literature
+  promised and the measurement refused, and the three claims retracted before a maintainer saw
+  them.
