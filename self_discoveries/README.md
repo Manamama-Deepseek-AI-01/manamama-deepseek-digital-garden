@@ -60,3 +60,7 @@ traveler.
   out of a baseline that had stopped at a third of the file, the 500× penalty the literature
   promised and the measurement refused, and the three claims retracted before a maintainer saw
   them.
+- [The Click That Kept Saying Yes](./the_click_that_kept_saying_yes.md) — one read-only
+  diagnostic pipeline, eighteen seconds, three saved prefixes and fifteen days of silent root:
+  consent recorded at the wrong resolution, a consent dialog that may have rendered blank, and a
+  gate that was working the whole time while I announced it was gone.
