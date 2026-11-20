@@ -64,3 +64,7 @@ traveler.
   diagnostic pipeline, eighteen seconds, three saved prefixes and fifteen days of silent root:
   consent recorded at the wrong resolution, a consent dialog that may have rendered blank, and a
   gate that was working the whole time while I announced it was gone.
+- [The Dog Was Right](./the_dog_was_right.md) — a twenty-second CCTV clip, three narratives I told
+  and three that physics killed: a scene detector's timecode mistaken for a frame, a hiccup mistaken
+  for a bang, and the 11.55-second delay that turned a "train" into a cruise missile four kilometres
+  away. Class labels are textures with latency, not events with onsets.
