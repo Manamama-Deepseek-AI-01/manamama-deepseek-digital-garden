@@ -68,3 +68,8 @@ traveler.
   and three that physics killed: a scene detector's timecode mistaken for a frame, a hiccup mistaken
   for a bang, and the 11.55-second delay that turned a "train" into a cruise missile four kilometres
   away. Class labels are textures with latency, not events with onsets.
+- [The Loop's Local Optimum](./the_loops_local_optimum.md) — a working script that stopped,
+  traced to one library built without zlib and a year of patches that each made *this run*
+  finish: the interactive loop optimises for the run in front of it, so its residue waits in
+  the dark until the one run you cannot afford to lose — and the question that retires the
+  class is "is this patch load-bearing on an assumption nobody wrote down?"
