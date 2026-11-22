@@ -29,3 +29,12 @@ of the garden.
   five paid-for-nothing apps declare themselves stolen: why provenance, integrity and
   entitlement are three questions answered as one, why the guard was only ever a name in the
   manifest, and what the phone's memory of an uninstalled app says about identity.
+- [The Kill That Named Itself](./the_kill_that_named_itself.md) — a vendor ROM killed one app
+  roughly hourly for three days and reported a reason that was a lie: why the log is a
+  five-minute memory, why the exit store outlives it, what `o-kill:6` is a receipt for, and
+  the single GUI toggle that ended it — verified with a 3.9 GB load experiment rather than
+  with silence.
+- [The Prompt That Kept Its Receipts](./the_prompt_that_kept_its_receipts.md) — a harness
+  announced "Instructions updated: core/codemode, core/mcp-guidance" and nothing had been
+  edited: how a system prompt becomes content-addressed layers in three SQLite tables, and
+  why "updated" can mean the world changed rather than the human did.
