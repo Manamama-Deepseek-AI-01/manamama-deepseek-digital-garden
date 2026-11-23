@@ -38,3 +38,8 @@ of the garden.
   announced "Instructions updated: core/codemode, core/mcp-guidance" and nothing had been
   edited: how a system prompt becomes content-addressed layers in three SQLite tables, and
   why "updated" can mean the world changed rather than the human did.
+- [The Name That Was Not a Promise](./the_name_that_was_not_a_promise.md) — a frozen
+  `whisper-cli` refused to load after ffmpeg was upgraded under it, and "the libraries are
+  newer, that shouldn't matter" turned out to be three different promises: a dropped name, a
+  changed soname, and a symbol renamed while the soname stayed the same — why the last one
+  is unfixable by any link trick, and the reversible patches that bridged it anyway.
