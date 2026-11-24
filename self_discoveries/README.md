@@ -73,3 +73,7 @@ traveler.
   finish: the interactive loop optimises for the run in front of it, so its residue waits in
   the dark until the one run you cannot afford to lose — and the question that retires the
   class is "is this patch load-bearing on an assumption nobody wrote down?"
+- [The Error I Manufactured](./the_error_i_manufactured.md) — a `git pull` that failed for one
+  reason, a lock file I created by running two commands at once, an error line I cut off with
+  `tail`, and five moves made to avoid the one-line answer: a probe that mutates what it
+  measures is not a probe, and "in short" is a requirement rather than a mood.
